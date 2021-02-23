@@ -1,12 +1,12 @@
-const path = require('path');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const path = require('path')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
-const isProd = process.env.NODE_ENV === 'production';
-const isDev = !isProd;
-const filename = (ext) => isDev ? `bundle.${ext}` : `bundle.[hash].${ext}`;
+const isProd = process.env.NODE_ENV === 'production'
+const isDev = !isProd
+const filename = (ext) => (isDev ? `bundle.${ext}` : `bundle.[hash].${ext}`)
 
 jsLoaders = () => {
   const loaders = [
@@ -14,14 +14,15 @@ jsLoaders = () => {
       loader: 'babel-loader',
       options: {
         presets: ['@babel/preset-env'],
+        plugins: ['@babel/plugin-proposal-class-properties'],
       },
     },
-  ];
+  ]
 
-  if (isDev) loaders.push('eslint-loader');
+  if (isDev) loaders.push('eslint-loader')
 
-  return loaders;
-};
+  return loaders
+}
 
 module.exports = {
   context: path.resolve(__dirname, 'src'),
@@ -31,7 +32,7 @@ module.exports = {
     filename: filename('js'),
     path: path.resolve(__dirname, 'dist'),
   },
-  devtool: isDev ? 'source-map': false,
+  devtool: isDev ? 'source-map' : false,
   devServer: {
     port: 3210,
     hot: isDev,
@@ -87,4 +88,4 @@ module.exports = {
       },
     ],
   },
-};
+}
